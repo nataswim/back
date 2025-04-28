@@ -10,19 +10,16 @@ use Illuminate\Support\Facades\Validator;
 class SwimSetController extends Controller
 {
     /**
-     * 🇬🇧 Display a listing of swim sets with exercise details
-     * 🇫🇷 Afficher la liste des séries de natation avec les détails des exercices
+     * Display a listing of the resource.
      */
     public function index()
     {
-        // Include the exercise relationship in the query
-        $swimSets = SwimSet::with('exercise')->get();
+        $swimSets = SwimSet::all();
         return response()->json($swimSets, 200);
     }
 
     /**
-     * 🇬🇧 Store a newly created resource in storage
-     * 🇫🇷 Enregistrer une nouvelle ressource en base de données
+     * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
@@ -39,27 +36,19 @@ class SwimSetController extends Controller
         }
 
         $swimSet = SwimSet::create($validator->validated());
-        
-        // Load the exercise relationship before returning
-        $swimSet->load('exercise');
-        
         return response()->json($swimSet, 201);
     }
 
     /**
-     * 🇬🇧 Display the specified resource with exercise details
-     * 🇫🇷 Afficher la ressource spécifiée avec les détails de l'exercice
+     * Display the specified resource.
      */
     public function show(SwimSet $swimSet)
     {
-        // Load the exercise relationship
-        $swimSet->load('exercise');
         return response()->json($swimSet, 200);
     }
 
     /**
-     * 🇬🇧 Update the specified resource in storage
-     * 🇫🇷 Mettre à jour la ressource spécifiée en base de données
+     * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
     {
@@ -78,16 +67,11 @@ class SwimSetController extends Controller
         }
 
         $swimSet->update($validator->validated());
-        
-        // Load the exercise relationship before returning
-        $swimSet->load('exercise');
-        
         return response()->json($swimSet, 200);
     }
 
     /**
-     * 🇬🇧 Remove the specified resource from storage
-     * 🇫🇷 Supprimer la ressource spécifiée de la base de données
+     * Remove the specified resource from storage.
      */
     public function destroy(SwimSet $swimSet)
     {
